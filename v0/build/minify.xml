@@ -1,0 +1,124 @@
+<project default="all">
+	<!-- Settings for CSS -->
+	<property name="src-dir" value="../dev"/>
+	<property name="dest-dir" value="../pub"/>
+	<property name="css.files" value="
+    ../../../../../../_common/css/spon_basic.css
+    ../../../../../../_common/css/tabNavi.css
+    ../../../../../../_common/js/jquery/jquery.qtip-2.0.1.css
+    ui.css
+	project.css
+    switches-dark.css
+	"/>
+	
+	<!-- Settings for JS -->
+	<property name="js.files" value="
+    main-concatenated.js
+	"/>
+	
+	<!-- General settings -->
+	<property name="yuicompressor-jar" value="../../../../../_develop/_tools/yuicompressor-2.4.7/build/yuicompressor-2.4.7.jar"/>
+	
+	
+  <target name="all" depends="css,javascript,data,img"/>
+	
+	<!-- Concat and minimize CSS -->
+	<target name="css">
+		<echo>Processing CSS</echo>
+		<!-- Concat CSS Files -->
+		<concat destfile="${dest-dir}/css/concat.css" encoding="UTF-8">
+			<filelist dir="${src-dir}/css" files="${css.files}"/>
+		</concat>
+		
+		<!-- Minimize CSS -->
+		<java jar="${yuicompressor-jar}" fork="true">
+		  <arg line="--charset UTF-8"/>
+		  <arg line="--preserve-semi"/>
+		  <arg line="-o ${dest-dir}/css/min.css"/>
+		  <arg line="${dest-dir}/css/concat.css"/>
+    </java>
+
+		<copy todir="${dest-dir}/css">
+    		<fileset dir="${src-dir}/css">
+      			<include name="map.css"/>
+    		</fileset>
+  		</copy>
+		
+		<!-- Remove old file-->
+		<delete>
+			<fileset dir="${dest-dir}/css">
+				<include name="concat.css"/>
+			</fileset>
+		</delete>
+	</target>
+	
+	<!-- Concat and minimize JS -->
+	<target name="javascript">
+		<echo>Processing Javascript</echo>
+		
+		<!-- Concat JS Files -->
+		<concat destfile="${dest-dir}/js/concat.js" encoding="UTF-8">
+			<filelist dir="${src-dir}/js" files="${js.files}"/>
+		</concat>
+		
+		<!-- consolendinger raus ! -->
+		<!-- s. http://code.google.com/p/daumopeneditor/source/browse/trunk/daumopeneditor/Editor1.2/www/build_editor.xml?r=33 -->
+		<replaceregexp match="(logProxy\.[^;]*;)" replace="//" flags="g" byline="true" >
+			<fileset dir="${dest-dir}/js" includes="concat.js" />
+		</replaceregexp>
+
+		<!-- console für debugging stehen lassen? -->
+		<replaceregexp match="(console\.[^;]*;)" replace="//" flags="g" byline="true" >
+            <fileset dir="${dest-dir}/js" includes="concat.js" />
+        </replaceregexp>
+
+        <replaceregexp match="(.*)\/\/noBuild$" replace="//" flags="g" byline="true" >
+            <fileset dir="${dest-dir}/js" includes="concat.js" />
+        </replaceregexp>
+
+
+
+		<!-- Minimize JS -->
+		<java jar="${yuicompressor-jar}" fork="true">
+			<arg line="--charset UTF-8"/>
+			<arg line="--preserve-semi"/>
+			<arg line="-o ${dest-dir}/js/min.js"/>
+            <arg line="${dest-dir}/js/concat.js"/>
+
+    </java>
+									
+		<!-- Remove old file -->
+		<delete>
+			<fileset dir="${dest-dir}/js">
+				<include name="concat.js"/>
+			</fileset>
+			<fileset dir="${src-dir}/js">
+				<include name="main-concatenated.js"/>
+			</fileset>
+		</delete>
+	</target>
+
+	<target name="data">
+		<echo>Copying data directory</echo>
+		<copy todir="${dest-dir}/data">
+    		<fileset dir="${src-dir}/data">
+      			<exclude name="**/*.py"/>
+    		</fileset>
+  		</copy>
+	</target>
+
+	<target name="img">
+		<echo>Copying img directory</echo>
+		<copy todir="${dest-dir}/img">
+    		<fileset dir="${src-dir}/img">
+      			<exclude name="**/*.psd"/>
+    		</fileset>
+  		</copy>
+        <copy todir="${dest-dir}/img/png">
+            <fileset dir="${src-dir}/img/png">
+                <exclude name="**/*.psd"/>
+            </fileset>
+        </copy>
+	</target>	
+
+</project>

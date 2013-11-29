@@ -1,0 +1,37 @@
+common:
+
+  database: "postgresql://fl@localhost/spon_scrape"
+  prefix: dev/data/
+  format: json
+
+# SELECT to_char(a.date, 'YYYY-MM-DD'), COUNT(DISTINCT a.id) FROM articles a LEFT JOIN keywords k ON k.number = a.number GROUP BY to_char(a.date, 'YYYY-MM-DD') ORDER BY to_char(a.date, 'YYYY-MM-DD') DESC;
+
+exports:
+
+  - query: >
+        SELECT to_char(a.date, 'YYYY-MM-DD') AS date, 
+                a.og_title AS title, 
+                a.number AS number,
+                a.article_url AS url
+            FROM articles a
+            LEFT JOIN keywords k ON k.number = a.number
+            LEFT JOIN topic t ON t.keyword = k.keyword
+            WHERE
+                t.label IS NOT NULL AND EXTRACT (YEAR FROM a.date) = 2013
+            ORDER BY to_char(a.date, 'YYYY-MM-DD') DESC;
+    filename: "articles.json"
+    indent: 2
+
+  - query: >
+        SELECT to_char(a.date, 'YYYY-MM-DD') AS d, 
+                a.headline AS t, 
+                a.number AS n,
+                t.label AS l
+            FROM articles a
+            LEFT JOIN keywords k ON k.number = a.number
+            LEFT JOIN topic t ON t.keyword = k.keyword
+            WHERE
+                t.label IS NOT NULL AND EXTRACT (YEAR FROM a.date) = 2013
+                AND a.article_url NOT LIKE '%%spiegel.de/international/%%'
+            ORDER BY to_char(a.date, 'YYYY-MM-DD') DESC;
+    filename: "articles_small.json"

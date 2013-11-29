@@ -1,0 +1,108 @@
+common:
+
+  database: "postgresql://fl@localhost/spon_scrape"
+  prefix: data/
+  format: json
+
+# SELECT to_char(a.date, 'YYYY-MM-DD'), COUNT(DISTINCT a.id) FROM articles a LEFT JOIN keywords k ON k.number = a.number GROUP BY to_char(a.date, 'YYYY-MM-DD') ORDER BY to_char(a.date, 'YYYY-MM-DD') DESC;
+
+exports:
+
+  - query: >
+        SELECT to_char(a.date, 'YYYY-MM-DD') AS date, COUNT(DISTINCT a.id) AS num_articles
+            FROM articles a
+            LEFT JOIN keywords k ON k.number = a.number
+            WHERE
+                (k.keyword ILIKE '%%Snowden%%' OR k.keyword ILIKE '%%NSA%%')
+                AND EXTRACT (YEAR FROM a.date) = 2013
+            GROUP BY to_char(a.date, 'YYYY-MM-DD')
+            ORDER BY to_char(a.date, 'YYYY-MM-DD') DESC;
+    meta:
+        title: "NSA-Spionageskandal"
+        description: "Die Enthüllungen des NSA-Whistleblowers Edward Snoweden und die darauffolgende politische Debatte zur staatlichen Überwachung."
+    filename: "nsa.json"
+
+  - query: >
+        SELECT to_char(a.date, 'YYYY-MM-DD') AS date, COUNT(DISTINCT a.id) AS num_articles
+            FROM articles a
+            LEFT JOIN keywords k ON k.number = a.number
+            WHERE
+                (k.keyword ILIKE '%%Papst%%' OR k.keyword ILIKE '%%Katholisch%%')
+                AND EXTRACT (YEAR FROM a.date) = 2013
+            GROUP BY to_char(a.date, 'YYYY-MM-DD')
+            ORDER BY to_char(a.date, 'YYYY-MM-DD') DESC;
+    meta:
+        title: "Der Papstwechsel"
+        description: "Joseph Ratzinger wird arbeitslos, dafür kommt ein argentinischer Papst ins Amt"
+    filename: "papst.json"
+
+  - query: >
+        SELECT to_char(a.date, 'YYYY-MM-DD') AS date, COUNT(DISTINCT a.id) AS num_articles
+            FROM articles a
+            LEFT JOIN keywords k ON k.number = a.number
+            WHERE
+                (k.keyword ILIKE '%%gypten%%' OR k.keyword ILIKE '%%Mursi%%' OR k.keyword ILIKE '%%Muslimbruder%%')
+                AND EXTRACT (YEAR FROM a.date) = 2013
+            GROUP BY to_char(a.date, 'YYYY-MM-DD')
+            ORDER BY to_char(a.date, 'YYYY-MM-DD') DESC;
+    meta:
+        title: "Machtkampf in Ägypten"
+        description: "Am Ende gewinnt immer der General."
+    filename: "egypt.json"
+
+  - query: >
+        SELECT to_char(a.date, 'YYYY-MM-DD') AS date, COUNT(DISTINCT a.id) AS num_articles
+            FROM articles a
+            LEFT JOIN keywords k ON k.number = a.number
+            WHERE
+                (k.keyword ILIKE '%%Syrien%%' OR k.keyword ILIKE '%%Assad%%')
+                AND EXTRACT (YEAR FROM a.date) = 2013
+            GROUP BY to_char(a.date, 'YYYY-MM-DD')
+            ORDER BY to_char(a.date, 'YYYY-MM-DD') DESC;
+    meta:
+        title: "Syrischer Bürgerkrieg"
+        description: "Flexibilitätstests bei roten Linien."
+    filename: "syrien.json"
+
+  - query: >
+        SELECT to_char(a.date, 'YYYY-MM-DD') AS date, COUNT(DISTINCT a.id) AS num_articles
+            FROM articles a
+            LEFT JOIN keywords k ON k.number = a.number
+            WHERE
+                (k.keyword ILIKE '%%Euro-%%' OR k.keyword ILIKE '%%Assad%%')
+                AND EXTRACT (YEAR FROM a.date) = 2013
+            GROUP BY to_char(a.date, 'YYYY-MM-DD')
+            ORDER BY to_char(a.date, 'YYYY-MM-DD') DESC;
+    meta:
+        title: "Die Euro-Krise"
+        description: "War ja auch nur für die Bundestagswahl pausiert, da kommt bald die neue Staffel."
+    filename: "eurokrise.json"
+
+  - query: >
+        SELECT to_char(a.date, 'YYYY-MM-DD') AS date, COUNT(DISTINCT a.id) AS num_articles
+            FROM articles a
+            LEFT JOIN keywords k ON k.number = a.number
+            WHERE
+                (k.keyword ILIKE '%%Offshore%%' OR k.keyword ILIKE '%%Steuer%%')
+                AND EXTRACT (YEAR FROM a.date) = 2013
+            GROUP BY to_char(a.date, 'YYYY-MM-DD')
+            ORDER BY to_char(a.date, 'YYYY-MM-DD') DESC;
+    meta:
+        title: "OffshoreLeaks"
+        description: "Das gabs ja auch noch."
+    filename: "offshore.json"
+
+
+  - query: >
+        SELECT to_char(a.date, 'YYYY-MM-DD') AS date, COUNT(DISTINCT a.id) AS num_articles
+            FROM articles a
+            LEFT JOIN keywords k ON k.number = a.number
+            WHERE
+                (k.keyword ILIKE '%%Bundestagswahl%%' OR k.keyword ILIKE '%%Wahl%%')
+                AND EXTRACT (YEAR FROM a.date) = 2013
+            GROUP BY to_char(a.date, 'YYYY-MM-DD')
+            ORDER BY to_char(a.date, 'YYYY-MM-DD') DESC;
+    meta:
+        title: "Bundestagswahlkampf"
+        description: "Der lange Kampf der freien Demokraten mit dem Abgrund. Spoiler: Der Abgrund gewinnt."
+    filename: "btw13.json"

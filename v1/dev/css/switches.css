@@ -1,0 +1,72 @@
+.switches {
+    display: block;
+    float: right;
+    padding: 0 0 0px 20px;
+}
+
+.switch-label {
+    display: inline-block;
+    height:20px;
+}
+
+/* buttonbar-buttons */
+.switch-button{
+    /*float:left;*/
+    display: inline-block;
+    height:20px;
+    margin-left:-5px;
+    border:1px solid #CCC;
+    line-height:20px;
+    font-size:10px;
+    font-weight:bold;
+    text-align:center;
+    text-decoration: none;  
+    color:#900;
+    padding: 1px 4px 1px 4px;
+    background:#ffffff;
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFffffff',EndColorStr='#FFeeeeee');
+    background:-webkit-linear-gradient(top, #ffffff 0%, #ffffff 35%, #efefef 50%, #efefef 100%);
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(35%,#ffffff), color-stop(50%,#efefef), color-stop(100%,#efefef));
+    background:-moz-linear-gradient(top, #ffffff 0%, #ffffff 35%, #efefef 50%, #efefef 100%);
+    background:-o-linear-gradient(top, #ffffff 0%, #ffffff 35%, #efefef 50%, #efefef 100%);
+    background:-ms-linear-gradient(bottom, #ffffff 35%, #efefef 29%, #efefef 100%);
+    background:linear-gradient(bottom, #ffffff 35%, #efefef 29%, #efefef 100%);
+}
+
+.switch-button:hover {
+    color: #000;
+}
+
+.switch-button.active {
+    cursor:default;
+    color:#999;
+    background:#efefef;
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#FFeeeeee',EndColorStr='#FFffffff');
+    background: -webkit-linear-gradient(bottom, #ffffff 0%, #ffffff 35%, #efefef 50%, #efefef 100%);
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0%,#ffffff), color-stop(35%,#ffffff), color-stop(50%,#efefef), color-stop(100%,#efefef));
+    background: -moz-linear-gradient(bottom, #ffffff 0%, #ffffff 35%, #efefef 50%, #efefef 100%);
+    background: -o-linear-gradient(bottom, #ffffff 0%, #ffffff 35%, #efefef 50%, #efefef 100%);
+    background: -ms-linear-gradient(top, #ffffff 35%, #efefef 29%, #efefef 100%);
+    background: linear-gradient(top, #ffffff 35%, #efefef 29%, #efefef 100%);
+}
+
+.switch-button.disabled {
+    text-decoration: none !important;
+    color: #666;
+    cursor: default;
+}
+
+.switch-button.left {
+  margin-left: 0px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 5px;
+}
+
+.switch-button.right {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 0px;
+}
