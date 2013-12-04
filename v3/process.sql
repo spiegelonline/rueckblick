@@ -7,10 +7,10 @@ CREATE TABLE topic (
     );
 
 
-INSERT INTO topic (label, keyword) VALUES ('Fußball', 'Fußball');
-INSERT INTO topic (label, keyword) VALUES ('Fußball', 'Fußball-Bundesliga');
-INSERT INTO topic (label, keyword) VALUES ('Fußball', 'Bayern München');
-INSERT INTO topic (label, keyword) VALUES ('Fußball', 'Borussia Dortmund');
+---INSERT INTO topic (label, keyword) VALUES ('Fußball', 'Fußball');
+---INSERT INTO topic (label, keyword) VALUES ('Fußball', 'Fußball-Bundesliga');
+INSERT INTO topic (label, keyword) VALUES ('FC Bayern München', 'Bayern München');
+---INSERT INTO topic (label, keyword) VALUES ('Fußball', 'Borussia Dortmund');
 INSERT INTO topic (label, keyword) VALUES ('Bundestagswahl', 'Bundestagswahl 2013');
 INSERT INTO topic (label, keyword) VALUES ('Bundestagswahl', 'Deutschland nach der Bundestagswahl');
 INSERT INTO topic (label, keyword) VALUES ('Bundestagswahl', 'Peer Steinbrück');

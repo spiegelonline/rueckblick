@@ -25,5 +25,17 @@
     Quelle: <a href='http://spiegel.de' target='_blank'> Spiegel Online</a>
   </div>
 
+  <script id="tooltip-template" type="text/x-underscore-template">
+    <h1><%= o.t %></h1>
+    <% if (i) { %>
+      <div class="spArticleImageBox" style="width: <%= i.width %>px; margin-bottom: 0px;">
+        <img width="<%= i.width %>" height="<%= i.height %>" border="0" style="float: none;" src="http://www.spiegel.de<%= i.url %>">
+        <div style="width:<%= i.width %>px;">
+          <div style="text-align:right;font-size:10px;color: #666666"><%= i.credit %></div>
+        </div>
+      </div>
+    <% } %>
+  </script>
+
 </body>
 </html>

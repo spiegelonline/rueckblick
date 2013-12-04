@@ -26,6 +26,7 @@ exports:
         SELECT to_char(a.date, 'YYYY-MM-DD') AS d, 
                 REPLACE(a.og_title, ' - SPIEGEL ONLINE', '') AS t,
                 a.number AS n,
+                a.pano_id AS i,
                 t.label AS l
             FROM articles a
             LEFT JOIN keywords k ON k.number = a.number

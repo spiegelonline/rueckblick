@@ -29,6 +29,8 @@ require(["jquery", "underscore", "hashchange", "interface", "d3", "colorbrewer"]
                         return d3.rgb(c).brighter(1);
                        });
 
+    var ttemp = _.template($('#tooltip-template').html());
+
     var width = 856,
         height = 1500,
         cellSize = 15; // cell size
@@ -136,10 +138,22 @@ require(["jquery", "underscore", "hashchange", "interface", "d3", "colorbrewer"]
                     .on('mouseover', function(d, t, w) {
                         var rect = d3.event.target.getBoundingClientRect();
                         var idx = Math.floor((d3.event.pageY - rect.top) / 3) - 1;
-                        tooltip.html(bytopic[w][d][idx].t)
-                            .style('top', d3.event.y + 'px')
+                        var y = d3.event.y || d3.event.pageY;
+                        var o = bytopic[w][d][idx];
+                        //console.log(d3.event);
+                        tooltip.html(ttemp({'i': null, 'o': o}))
+                            .style('top', y + 'px')
                             .style('left', rect.right + 'px')
                             .style('display', 'block');
+                        //console.log(o);
+                        if (o.i!==null) {
+                            var dfd = $.getJSON('/jsapi/assetlist/image/'+o.i+'-thumbflexhp.json');
+                            dfd.done(function(d) {
+                                var html = ttemp({'i': d[o.i], 'o': o});
+                                tooltip.html(html);
+                            });
+                        }
+                        
                     })
                     .on('mouseout', function(d, t, w) {
                         tooltip.style('display', 'none');
