@@ -5,9 +5,6 @@ require.config({
         },
         d3 :  {
             exports: "d3"
-        },
-        colorbrewer :  {
-            exports: "colorbrewer"
         }
     },
     paths: {
@@ -16,15 +13,14 @@ require.config({
         tabNavi:            "../../../../../../_common/js/spon/v0/ui/tabNavigation",
         underscore:         "../../../../../../_common/js/underscore/underscore-1.4.4.min",
         hashchange:         "../../../../../../_common/js/jquery/jquery.hashchange-1.3.amd",
-        d3:                 "d3",
-        colorbrewer:        "colorbrewer"
+        d3:                 "d3"
     }
 });
 
-require(["jquery", "underscore", "hashchange", "interface", "d3", "colorbrewer"],
-        function ($, _, jqhash, mSponInterface, d3, colorbrewer) {
+require(["jquery", "underscore", "hashchange", "interface", "d3"],
+        function ($, _, jqhash, mSponInterface, d3) {
 
-    var sponPalette = _.map(['#09336f', '#0c6e0c', '#ff9900', '#b70013', '#70451e', '#62335f',
+    var sponPalette = _.map(['#09336f', '#0c6e0c', '#ff9900', '#70451e', '#b70013', '#62335f',
                        '#06234c', '#014d01', '#f9830e', '#a30415', '#5e3310', '#4fb4c'], function(c) {
                         return d3.rgb(c).brighter(1);
                        });
